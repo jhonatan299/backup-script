@@ -28,11 +28,35 @@ ls -l /usr/local/bin/backup.sh | tee backup-script-copy
 
 ## Tarea 5: cron cada 24 horas → `crontab-schedule`
 
+Primero, prueba con un cron que corre cada minuto:
+
 ```bash
 crontab -e
 ```
 
 Agrega esta línea, guarda y cierra el editor:
+
+```
+*/1 * * * * /usr/local/bin/backup.sh /home/project/important-documents /home/project
+```
+
+```bash
+sudo service cron start
+```
+
+Espera un par de minutos y revisa que aparezcan respaldos nuevos:
+
+```bash
+ls -l /home/project/backup-*.tar.gz
+```
+
+Si aparecen, detén cron para que no siga creando uno por minuto:
+
+```bash
+sudo service cron stop
+```
+
+Ahora deja el horario definitivo. Abre `crontab -e` otra vez, borra la línea `*/1` y pon esta:
 
 ```
 0 0 * * * /usr/local/bin/backup.sh /home/project/important-documents /home/project

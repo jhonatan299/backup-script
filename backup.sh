@@ -41,7 +41,7 @@ origAbsPath=`pwd`
 
 # [TASK 6]
 cd "$destinationDirectory" || exit # <-
-destDirAbsPath=`pwd`
+destAbsPath=`pwd`
 
 # [TASK 7]
 cd "$origAbsPath" || exit # <-
@@ -52,10 +52,10 @@ yesterdayTS=$(($currentTS - 24 * 60 * 60))
 
 declare -a toBackup
 
-for file in $(ls) # [TASK 9]
+for file in * # [TASK 9]
 do
   # [TASK 10]
-  if ((`date -r $file +%s` > $yesterdayTS))
+  if [[ `date -r $file +%s` -gt $yesterdayTS ]]
   then
     # [TASK 11]
     toBackup+=($file)
@@ -66,6 +66,6 @@ done
 tar -czvf $backupFileName ${toBackup[@]}
 
 # [TASK 13]
-mv $backupFileName $destDirAbsPath
+mv $backupFileName $destAbsPath
 
 # Congratulations! You completed the final project for this course!
