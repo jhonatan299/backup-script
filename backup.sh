@@ -40,12 +40,12 @@ backupFileName="backup-$currentTS.tar.gz"
 origAbsPath=`pwd`
 
 # [TASK 6]
-cd $destinationDirectory # <-
+cd "$destinationDirectory" || exit # <-
 destDirAbsPath=`pwd`
 
 # [TASK 7]
-cd $origAbsPath # <-
-cd $targetDirectory # <-
+cd "$origAbsPath" || exit # <-
+cd "$targetDirectory" || exit # <-
 
 # [TASK 8]
 yesterdayTS=$(($currentTS - 24 * 60 * 60))
